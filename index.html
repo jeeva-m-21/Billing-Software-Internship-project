@@ -3,580 +3,190 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard - Legal Initiation Tracker</title>
+  <title>Legal Tracker Dashboard</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body style="background-image: url('tracker.png'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+<body>
 
-  <div class="bg-wrapper">
-    <div id="login-container" class="login-container">
-      <h1>Legal Tracker Login</h1>
-      <p>Please sign in with your Google account to access the dashboard</p>
-      <button id="authorize_button" class="login-btn">Sign In with Google</button>
-    </div>
+  <div class="login-container" id="login-container">
+  <h1>Legal Tracker Login</h1>
+  <p>Sign in with Google to access the dashboard</p>
+  <button id="authorize_button" class="login-btn">Sign In with Google</button>
+</div>
 
-    <div id="dashboard-wrapper" class="dashboard-wrapper hidden">
-      <header>
-        <h1>Legal Tracker Dashboard</h1>
-        <button id="signout_button" class="signout-btn">Sign Out</button>
-      </header>
+<div class="dashboard-wrapper hidden" id="dashboard-wrapper">
+    <header>
+    <h1>Legal Tracker Dashboard</h1>
+    <button id="signout_button" class="signout-btn">Sign Out</button>
+  </header>
 
-      <main>
-        <div class="controls">
-          <button onclick="toggleView('view-submissions')" class="control-btn">📝 View Submissions</button>
-          <button onclick="toggleView('add-record')" class="control-btn">➕ Add New Record</button>
-          <button onclick="toggleView('bulk-email')" class="control-btn">📧 Send Bulk Emails</button>
-        </div>
-
-        <!-- View Submissions View -->
-        <div id="view-submissions-view" class="content-view">
-          <div class="submissions-container">
-            <h2>View Submissions by Date Range</h2>
-            <p>Select a date range to view submissions</p>
-            
-            <div class="date-range-container">
-              <div class="form-group">
-                <label for="submissions-start-date">Start Date:</label>
-                <input type="date" id="submissions-start-date">
-              </div>
-              <div class="form-group">
-                <label for="submissions-end-date">End Date:</label>
-                <input type="date" id="submissions-end-date">
-              </div>
-              <button onclick="fetchSubmissions()" class="action-btn">Fetch Submissions</button>
-            </div>
-            
-            <div id="submissions-status-message" class="status-message"></div>
-            
-            <div id="submissions-table-container" class="table-container">
-              <!-- Table will be inserted here by JavaScript -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Add Record View -->
-        <div id="add-record-view" class="content-view hidden">
-          <div class="add-record-form">
-            <h2>Add New Submission</h2>
-            
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="new-sender-email">Sender Email:</label>
-                <input type="email" id="new-sender-email" placeholder="e.g., example@domain.com">
-              </div>
-              
-              <div class="form-group">
-                <label for="new-applicant-name">Applicant Name:</label>
-                <input type="text" id="new-applicant-name" placeholder="e.g., John Doe">
-              </div>
-              
-              <div class="form-group">
-                <label for="new-branch">Branch:</label>
-                <input type="text" id="new-branch" placeholder="e.g., Main Branch">
-              </div>
-              
-              <div class="form-group">
-                <label for="new-contact-person">Contact Person:</label>
-                <input type="text" id="new-contact-person" placeholder="e.g., Jane Smith">
-              </div>
-              
-              <div class="form-group">
-                <label for="new-contact-number">Contact Number:</label>
-                <input type="text" id="new-contact-number" placeholder="e.g., +1234567890">
-              </div>
-              
-              <div class="form-group">
-                <label for="new-sm-name">SM Name:</label>
-                <input type="text" id="new-sm-name" placeholder="e.g., Sales Manager Name">
-              </div>
-              
-              <div class="form-group">
-                <label for="new-sm-number">SM Number:</label>
-                <input type="text" id="new-sm-number" placeholder="e.g., SM123">
-              </div>
-              
-              <div class="form-group">
-                <label for="new-loan-amount">Loan Amount:</label>
-                <input type="text" id="new-loan-amount" placeholder="e.g., 500000">
-              </div>
-              
-              <div class="form-group">
-                <label for="new-product">Product:</label>
-                <input type="text" id="new-product" placeholder="e.g., Home Loan">
-              </div>
-              
-              <div class="form-group full-width">
-                <label for="new-property-address">Property Address:</label>
-                <input type="text" id="new-property-address" placeholder="e.g., 123 Main St">
-              </div>
-            </div>
-            
-            <button id="submit_record_button" class="submit-btn">Submit New Record</button>
-          </div>
-        </div>
-
-        <!-- Bulk Email View -->
-        <div id="bulk-email-view" class="content-view hidden">
-          <div class="bulk-email-panel">
-            <h2>Send Bulk Emails by Date Range</h2>
-            <p>Emails will be sent to all records within the selected date range.</p>
-            
-            <div class="date-range-container">
-              <div class="form-group">
-                <label for="start-date">Start Date:</label>
-                <input type="date" id="start-date">
-              </div>
-              <div class="form-group">
-                <label for="end-date">End Date:</label>
-                <input type="date" id="end-date">
-              </div>
-            </div>
-            
-            <button onclick="fetchRecordsForBulkEmail()" class="action-btn">Find Records</button>
-            
-            <div id="bulk-status-message" class="status-message"></div>
-            <div id="bulk-progress-container" class="progress-container">
-              <div id="bulk-progress-bar" class="progress-bar">0%</div>
-            </div>
-            
-            <div id="bulk-email-table-container" class="table-container"></div>
-            
-            <button id="send-bulk-emails-btn" onclick="sendBulkEmails()" class="submit-btn hidden">Send Bulk Emails</button>
-          </div>
-        </div>
-      </main>
-    </div>
+  <div class="controls">
+    <button onclick="toggleView('view-submissions')" class="control-btn">📝 View Submissions</button>
+    <button onclick="toggleView('add-record')" class="control-btn">➕ Add New Record</button>
   </div>
 
-  <script>
-// Constants - REPLACE THESE WITH YOUR ACTUAL VALUES
-const CLIENT_ID = '94377658407-cm6ghkgsk5iuoj1sl7bv4lru6vo9ed54.apps.googleusercontent.com';
-const SPREADSHEET_ID = '16Ovk2aISc0aood-b78EyoIYeQKR2LK7PyVhuCs6toHs';
-const SHEET_RANGE = 'Sheet1';
-const SCOPES = 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/gmail.send';
+  <!-- View Submissions -->
+  <div id="view-submissions-view" class="content-view">
+    <h2>View Submissions</h2>
+    <input type="text" id="search-box" placeholder="Search by Project Name, Unique No, Builder Group" oninput="filterRecords()" />
+    <div id="submissions-table-container"></div>
+  </div>
 
-// Global variables
+  <!-- Add Record -->
+  <div id="add-record-view" class="content-view hidden">
+    <h2>Add New Submission</h2>
+    <div class="form-grid">
+      <div class="form-group"><label>Project Name:</label><input type="text" id="new-project-name"></div>
+      <div class="form-group"><label>Unique No / APF ID:</label><input type="text" id="new-apf-id"></div>
+      <div class="form-group full-width"><label>Builder Group & Company:</label><input type="text" id="new-builder-group"></div>
+      <div class="form-group"><label>Status:</label><input type="text" id="new-status"></div>
+      <div class="form-group full-width"><label>Postal Address:</label><input type="text" id="new-address"></div>
+      <div class="form-group"><label>State / City:</label><input type="text" id="new-state-city"></div>
+      <div class="form-group full-width"><label>Currently Pending With:</label><input type="text" id="new-pending-with"></div>
+      <div class="form-group full-width"><label>Action:</label><input type="text" id="new-action"></div>
+    </div>
+    <button id="submit_record_button" class="submit-btn">Submit Record</button>
+  </div>
+</div>
+
+<script>
+const CLIENT_ID = 'YOUR_CLIENT_ID';
+const SPREADSHEET_ID = 'YOUR_SHEET_ID';
+const SHEET_RANGE = 'Sheet1';
+const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+
 let tokenClient;
 let gapiInited = false;
 let gisInited = false;
-let bulkEmailRecords = [];
 let allSubmissions = [];
 
-// DOM Elements
 const loginContainer = document.getElementById('login-container');
 const dashboardWrapper = document.getElementById('dashboard-wrapper');
 const authorizeButton = document.getElementById('authorize_button');
 const signoutButton = document.getElementById('signout_button');
 const submitRecordButton = document.getElementById('submit_record_button');
-const sendBulkEmailsBtn = document.getElementById('send-bulk-emails-btn');
-const bulkStatusMessage = document.getElementById('bulk-status-message');
-const bulkProgressContainer = document.getElementById('bulk-progress-container');
-const bulkProgressBar = document.getElementById('bulk-progress-bar');
-const submissionsStatusMessage = document.getElementById('submissions-status-message');
 
-// Initialize Google APIs
-function gapiLoaded() {
-  gapi.load('client', initializeGapiClient);
-}
-
-function gisLoaded() {
-  gisInited = true;
-  initializeGisClient();
-}
+function gapiLoaded() { gapi.load('client', initializeGapiClient); }
+function gisLoaded() { gisInited = true; initializeGisClient(); }
 
 function initializeGapiClient() {
   gapi.client.init({
-    discoveryDocs: [
-      'https://sheets.googleapis.com/$discovery/rest?version=v4',
-      'https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest'
-    ],
+    discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4']
   }).then(() => {
     gapiInited = true;
     updateAuthUI();
-  }).catch(err => console.error('Error initializing GAPI client:', err));
+  });
 }
 
 function initializeGisClient() {
   tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
     scope: SCOPES,
-    callback: (tokenResponse) => {
-      if (tokenResponse && tokenResponse.access_token) {
-        gapi.client.setToken(tokenResponse);
+    callback: (resp) => {
+      if (resp.access_token) {
+        gapi.client.setToken(resp);
         updateAuthUI();
-        console.log('Access token obtained');
-      } else {
-        console.error('Failed to obtain access token:', tokenResponse);
+        fetchSubmissions();
       }
-    },
-    error_callback: (error) => {
-      console.error('GIS Error:', error);
-      alert('Authorization failed. Check console for details.');
     }
   });
-
-  if (authorizeButton) authorizeButton.onclick = handleAuthClick;
-  if (signoutButton) signoutButton.onclick = handleSignoutClick;
-  if (submitRecordButton) submitRecordButton.onclick = submitNewRecordToSheet;
-  updateAuthUI();
+  authorizeButton.onclick = handleAuthClick;
+  signoutButton.onclick = handleSignoutClick;
+  submitRecordButton.onclick = submitNewRecordToSheet;
 }
 
-// Authentication handlers
 function handleAuthClick() {
-  if (gapi.client.getToken() === null) {
-    tokenClient.requestAccessToken({prompt: 'consent'});
-  } else {
-    tokenClient.requestAccessToken({prompt: ''});
-  }
+  tokenClient.requestAccessToken({prompt: 'consent'});
 }
 
 function handleSignoutClick() {
   const token = gapi.client.getToken();
-  if (token !== null) {
+  if(token) {
     google.accounts.oauth2.revoke(token.access_token, () => {
-      gapi.client.setToken('');
-      loginContainer.classList.remove('hidden');
-      dashboardWrapper.classList.add('hidden');
-      console.log('Access token revoked.');
+      // Clear client token and update UI
+      try { gapi.client.setToken(null); } catch(e) { console.warn('Could not clear token', e); }
+      updateAuthUI();
     });
   }
 }
 
 function updateAuthUI() {
-  if (!gapiInited || !gisInited) return;
-
-  if (gapi.client.getToken() === null) {
+  if(!gapiInited || !gisInited) return;
+  if(!gapi.client.getToken()) {
     loginContainer.classList.remove('hidden');
     dashboardWrapper.classList.add('hidden');
   } else {
     loginContainer.classList.add('hidden');
     dashboardWrapper.classList.remove('hidden');
-    // Set default view to submissions
     toggleView('view-submissions');
-    // Set default dates for both views
-    setDefaultDates();
   }
 }
 
-// View management
 function toggleView(viewName) {
-  // Hide all views
-  document.querySelectorAll('.content-view').forEach(view => {
-    view.classList.add('hidden');
-  });
-  
-  // Show selected view
-  document.getElementById(`${viewName}-view`).classList.remove('hidden');
-  
-  // If showing submissions view, set default dates
-  if (viewName === 'view-submissions' || viewName === 'bulk-email') {
-    setDefaultDates();
-  }
+  document.querySelectorAll('.content-view').forEach(v => v.classList.add('hidden'));
+  const el = document.getElementById(`${viewName}-view`);
+  if(el) el.classList.remove('hidden');
 }
 
-// Record management
-function generateLeadID() {
-  return 'HLSA' + Math.floor(Math.random() * 10000).toString().padStart(4, '0') + 'D' + Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+async function fetchSubmissions() {
+  try {
+    const response = await gapi.client.sheets.spreadsheets.values.get({ spreadsheetId: SPREADSHEET_ID, range: SHEET_RANGE });
+    const data = response.result.values;
+    if (!data || data.length < 2) return;
+    const headers = data[0];
+    // store headers globally so filtered views can reuse the same column order
+    window.sheetHeaders = headers;
+    allSubmissions = data.slice(1);
+    displaySubmissions(allSubmissions, headers);
+  } catch(e) { console.error(e); }
+}
+
+function displaySubmissions(records, headers) {
+  let html = '<table><thead><tr>';
+  headers.forEach(h => html += `<th>${h}</th>`);
+  html += '</tr></thead><tbody>';
+  records.forEach(r => { html += '<tr>'; r.forEach(c => html += `<td>${c || '-'}</td>`); html += '</tr>'; });
+  html += '</tbody></table>';
+  document.getElementById('submissions-table-container').innerHTML = html;
+}
+
+function filterRecords() {
+  const term = document.getElementById('search-box').value.toLowerCase();
+  const filtered = allSubmissions.filter(r => 
+    (r[0] && r[0].toLowerCase().includes(term)) ||
+    (r[1] && r[1].toLowerCase().includes(term)) ||
+    (r[2] && r[2].toLowerCase().includes(term))
+  );
+  const headers = window.sheetHeaders || ['Project Name','Unique No / APF ID','Builder Group & Company','Status','Postal Address','State / City','Currently Pending With','Action'];
+  displaySubmissions(filtered, headers);
 }
 
 async function submitNewRecordToSheet() {
-  if (gapi.client.getToken() === null) {
-    alert('Please sign in first.');
-    return;
-  }
-
-  // Get all input values
-  const senderEmail = document.getElementById('new-sender-email').value;
-  const applicantName = document.getElementById('new-applicant-name').value;
-  const branch = document.getElementById('new-branch').value;
-  const contactPerson = document.getElementById('new-contact-person').value;
-  const contactNumber = document.getElementById('new-contact-number').value;
-  const smName = document.getElementById('new-sm-name').value;
-  const smNumber = document.getElementById('new-sm-number').value;
-  const loanAmount = document.getElementById('new-loan-amount').value;
-  const product = document.getElementById('new-product').value;
-  const propertyAddress = document.getElementById('new-property-address').value;
-
-  if (!senderEmail || !applicantName) {
-    alert('Sender Email and Applicant Name are required!');
-    return;
-  }
-
-  const now = new Date();
-  const timeReceived = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}, ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
-  const leadID = generateLeadID();
-
   const values = [
-    timeReceived, senderEmail, leadID, applicantName, branch,
-    contactPerson, contactNumber, smName, smNumber, loanAmount,
-    product, propertyAddress
+    document.getElementById('new-project-name').value || '-',
+    document.getElementById('new-apf-id').value || '-',
+    document.getElementById('new-builder-group').value || '-',
+    document.getElementById('new-status').value || '-',
+    document.getElementById('new-address').value || '-',
+    document.getElementById('new-state-city').value || '-',
+    document.getElementById('new-pending-with').value || '-',
+    document.getElementById('new-action').value || '-'
   ];
-
-  const body = { values: [values] };
-
   try {
-    const response = await gapi.client.sheets.spreadsheets.values.append({
+    await gapi.client.sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
       range: SHEET_RANGE,
       valueInputOption: 'USER_ENTERED',
-      insertDataOption: 'INSERT_ROWS'
-    }, body);
-
-    if (response.result && response.result.updates.updatedRows) {
-      alert('Record added successfully!');
-      // Clear form fields
-      document.querySelectorAll('#add-record-view input').forEach(input => input.value = '');
-    } else {
-      console.error('Error response from Sheets API:', response);
-      alert('Error adding record to Google Sheet.');
-    }
-  } catch (err) {
-    console.error('Error in submitNewRecordToSheet function:', err);
-    alert('An error occurred while trying to add the record: ' + err.message);
-  }
+      insertDataOption: 'INSERT_ROWS',
+      resource: { values: [values] }
+    });
+    alert('Record added!');
+    fetchSubmissions();
+    document.querySelectorAll('#add-record-view input').forEach(i => i.value = '');
+  } catch(e) { console.error(e); alert('Failed to add record'); }
 }
-
-// Date range functions
-function setDefaultDates() {
-  const today = new Date();
-  const sevenDaysAgo = new Date();
-  sevenDaysAgo.setDate(today.getDate() - 7);
-  
-  // Set for submissions view
-  document.getElementById('submissions-start-date').valueAsDate = sevenDaysAgo;
-  document.getElementById('submissions-end-date').valueAsDate = today;
-  
-  // Set for bulk email view
-  document.getElementById('start-date').valueAsDate = sevenDaysAgo;
-  document.getElementById('end-date').valueAsDate = today;
-}
-
-// Submissions view functions
-async function fetchSubmissions() {
-  const startDate = document.getElementById('submissions-start-date').value;
-  const endDate = document.getElementById('submissions-end-date').value;
-  
-  if (!startDate || !endDate) {
-    submissionsStatusMessage.className = 'status-message status-error';
-    submissionsStatusMessage.textContent = '⚠️ Please select both start and end dates.';
-    return;
-  }
-  
-  try {
-    submissionsStatusMessage.className = 'status-message status-info';
-    submissionsStatusMessage.textContent = '⏳ Loading submissions...';
-    
-    const response = await gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: SPREADSHEET_ID,
-      range: SHEET_RANGE,
-    });
-    
-    const data = response.result.values;
-    if (!data || data.length < 2) {
-      submissionsStatusMessage.className = 'status-message status-error';
-      submissionsStatusMessage.textContent = '❌ No submissions found in the sheet.';
-      return;
-    }
-    
-    const headers = data[0];
-    const records = data.slice(1);
-    
-    // Filter records by date range
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    end.setDate(end.getDate() + 1); // Include the entire end date
-    
-    const filteredRecords = records.filter(record => {
-      if (!record[0]) return false;
-      
-      // Parse the date from the timestamp (format: "M/D/YYYY, h:mm:ss AM/PM")
-      const dateStr = record[0].split(',')[0];
-      const [month, day, year] = dateStr.split('/').map(Number);
-      const recordDate = new Date(year, month - 1, day);
-      
-      return recordDate >= start && recordDate < end;
-    });
-    
-    if (filteredRecords.length === 0) {
-      submissionsStatusMessage.className = 'status-message status-error';
-      submissionsStatusMessage.textContent = '❌ No submissions found within the selected date range.';
-      document.getElementById('submissions-table-container').innerHTML = '';
-      return;
-    }
-    
-    // Store all submissions for potential export
-    allSubmissions = filteredRecords;
-    
-    // Display the filtered records
-    let tableHTML = '<div class="table-scroll"><table><thead><tr>';
-    headers.forEach(header => tableHTML += `<th>${header}</th>`);
-    tableHTML += '</tr></thead><tbody>';
-    
-    filteredRecords.forEach(record => {
-      tableHTML += '<tr>';
-      record.forEach(cell => tableHTML += `<td>${cell || ''}</td>`);
-      tableHTML += '</tr>';
-    });
-    
-    tableHTML += '</tbody></table></div>';
-    document.getElementById('submissions-table-container').innerHTML = tableHTML;
-    
-    submissionsStatusMessage.className = 'status-message status-success';
-    submissionsStatusMessage.textContent = `✅ Found ${filteredRecords.length} submissions matching the date range.`;
-    
-  } catch (err) {
-    console.error('Error fetching submissions:', err);
-    submissionsStatusMessage.className = 'status-message status-error';
-    submissionsStatusMessage.textContent = '❌ Failed to fetch submissions. Check console for details.';
-  }
-}
-
-// Bulk Email Functions
-async function fetchRecordsForBulkEmail() {
-  const startDate = document.getElementById('start-date').value;
-  const endDate = document.getElementById('end-date').value;
-  
-  if (!startDate || !endDate) {
-    bulkStatusMessage.className = 'status-message status-error';
-    bulkStatusMessage.textContent = '⚠️ Please select both start and end dates.';
-    return;
-  }
-  
-  try {
-    const response = await gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: SPREADSHEET_ID,
-      range: SHEET_RANGE,
-    });
-    
-    const data = response.result.values;
-    if (!data || data.length < 2) {
-      bulkStatusMessage.className = 'status-message status-error';
-      bulkStatusMessage.textContent = '❌ No records found in the sheet.';
-      return;
-    }
-    
-    const headers = data[0];
-    const records = data.slice(1);
-    
-    // Filter records by date range
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    end.setDate(end.getDate() + 1); // Include the entire end date
-    
-    bulkEmailRecords = records.filter(record => {
-      if (!record[0]) return false;
-      
-      // Parse the date from the timestamp (format: "M/D/YYYY, h:mm:ss AM/PM")
-      const dateStr = record[0].split(',')[0];
-      const [month, day, year] = dateStr.split('/').map(Number);
-      const recordDate = new Date(year, month - 1, day);
-      
-      return recordDate >= start && recordDate < end;
-    });
-    
-    if (bulkEmailRecords.length === 0) {
-      bulkStatusMessage.className = 'status-message status-error';
-      bulkStatusMessage.textContent = '❌ No records found within the selected date range.';
-      document.getElementById('bulk-email-table-container').innerHTML = '';
-      sendBulkEmailsBtn.classList.add('hidden');
-      return;
-    }
-    
-    // Display the filtered records
-    let tableHTML = '<div class="table-scroll"><table><thead><tr>';
-    headers.forEach(header => tableHTML += `<th>${header}</th>`);
-    tableHTML += '</tr></thead><tbody>';
-    
-    bulkEmailRecords.forEach(record => {
-      tableHTML += '<tr>';
-      record.forEach(cell => tableHTML += `<td>${cell || ''}</td>`);
-      tableHTML += '</tr>';
-    });
-    
-    tableHTML += '</tbody></table></div>';
-    document.getElementById('bulk-email-table-container').innerHTML = tableHTML;
-    
-    bulkStatusMessage.className = 'status-message status-success';
-    bulkStatusMessage.textContent = `✅ Found ${bulkEmailRecords.length} records matching the date range.`;
-    sendBulkEmailsBtn.classList.remove('hidden');
-    
-  } catch (err) {
-    console.error('Error fetching records for bulk email:', err);
-    bulkStatusMessage.className = 'status-message status-error';
-    bulkStatusMessage.textContent = '❌ Failed to fetch records. Check console for details.';
-  }
-}
-
-async function sendBulkEmails() {
-  if (bulkEmailRecords.length === 0) {
-    bulkStatusMessage.className = 'status-message status-error';
-    bulkStatusMessage.textContent = '⚠️ No records to send emails to.';
-    return;
-  }
-  
-  const headers = await gapi.client.sheets.spreadsheets.values.get({
-    spreadsheetId: SPREADSHEET_ID,
-    range: `${SHEET_RANGE}!1:1`,
-  }).then(response => response.result.values[0]);
-  
-  // Show progress bar
-  bulkProgressContainer.style.display = 'block';
-  bulkProgressBar.style.width = '0%';
-  bulkProgressBar.textContent = '0%';
-  
-  let successCount = 0;
-  let errorCount = 0;
-  
-  // Disable button during sending
-  sendBulkEmailsBtn.disabled = true;
-  sendBulkEmailsBtn.textContent = 'Sending...';
-  
-  // Process emails one by one with delay to avoid rate limiting
-  for (let i = 0; i < bulkEmailRecords.length; i++) {
-    const record = bulkEmailRecords[i];
-    const recipientEmail = record[1]; // Email is in the second column
-    
-    try {
-      let body = `<h3>Legal Initiation Details</h3><ul>`;
-      headers.forEach((head, j) => {
-        body += `<li><strong>${head}</strong>: ${record[j] || 'N/A'}</li>`;
-      });
-      body += `</ul>`;
-      
-      await gapi.client.gmail.users.messages.send({
-        userId: 'me',
-        resource: {
-          raw: btoa(
-            `To: ${recipientEmail}\r\nSubject: Legal Tracker Submission\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n${body}`
-          ).replace(/\+/g, '-').replace(/\//g, '_')
-        }
-      });
-      
-      successCount++;
-    } catch (err) {
-      console.error(`Failed to send email to ${recipientEmail}:`, err);
-      errorCount++;
-    }
-    
-    // Update progress
-    const progress = Math.round(((i + 1) / bulkEmailRecords.length) * 100);
-    bulkProgressBar.style.width = `${progress}%`;
-    bulkProgressBar.textContent = `${progress}%`;
-    
-    // Add small delay between emails
-    await new Promise(resolve => setTimeout(resolve, 1000));
-  }
-  
-  // Update status
-  bulkStatusMessage.className = 'status-message status-success';
-  bulkStatusMessage.textContent = `✅ Bulk email completed! Success: ${successCount}, Failed: ${errorCount}`;
-  
-  // Re-enable button
-  sendBulkEmailsBtn.disabled = false;
-  sendBulkEmailsBtn.textContent = 'Send Bulk Emails';
-}
-  </script>
-  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+</script>
+<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 </body>
 </html>
