@@ -31,39 +31,44 @@ body {
 
 /* Login Container */
 .login-container {
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 40px;
-  background: #fff;
+  position: relative;
+  max-width: 1000px;
+  margin: 40px auto;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Login background and card */
+.login-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('tracker.png');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6);
+  z-index: 0;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.login-card {
+  position: relative;
+  z-index: 2;
+  max-width: 420px;
+  width: 92%;
+  padding: 32px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
   text-align: center;
 }
 
-.login-container h1 {
-  margin-bottom: 10px;
-  color: #2c3e50;
-}
+.login-card h1 { margin: 0 0 8px 0; color: #2c3e50; }
+.muted { color: #6c757d; margin-bottom: 18px; }
 
-.login-container p {
-  color: #7f8c8d;
-  margin-bottom: 30px;
-}
-
-.login-btn {
-  background: #4285F4;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.login-btn:hover {
-  background: #3367D6;
-}
+.login-btn { background: #4285F4; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 16px; cursor: pointer; transition: background 0.2s ease, transform 0.08s ease; }
+.login-btn:hover { background: #3367D6; transform: translateY(-1px); }
 
 /* Dashboard Wrapper */
 .dashboard-wrapper {
@@ -132,6 +137,35 @@ header h1 {
 /* Content Views */
 .content-view {
   margin-top: 20px;
+}
+
+/* Search styling */
+#search-box {
+  width: 100%;
+  max-width: 720px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+#submissions-table-container { margin-top: 12px; }
+
+#submissions-table-container table { width: 100%; border-collapse: collapse; border: 1px solid #e6e6e6; border-radius: 6px; overflow: hidden; }
+
+#submissions-table-container th, #submissions-table-container td { padding: 10px 12px; border-bottom: 1px solid #f1f1f1; }
+
+#submissions-table-container thead th { background: #fafafa; position: sticky; top: 0; z-index: 1; }
+
+.no-results { color: #7a7a7a; padding: 18px; text-align: center; }
+
+/* Responsive tweaks */
+@media (max-width: 700px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .control-btn { min-width: 140px; }
+  .login-container { height: 520px; margin: 20px; }
 }
 
 /* Spreadsheet Container */
